@@ -1,9 +1,10 @@
 # ⛏️ CraftPulse
+
 ### A Modern Material You Minecraft Launcher
 
 A sleek, feature-rich, and offline-capable Minecraft launcher built with **Python + Flet**, inspired by Google's **Material You (Material 3)** design language.
 
-Manage multiple Minecraft instances, automatically download Java, install mod loaders, browse Modrinth, and customize your experience — all from one modern interface.
+Manage multiple Minecraft instances, automatically download Java, install mod loaders, browse Modrinth, and customize your Minecraft experience — all from one modern interface.
 
 <p align="center">
 
@@ -15,17 +16,25 @@ Manage multiple Minecraft instances, automatically download Java, install mod lo
 
 ## 📥 Download & Install
 
-**Want to get started without setting up Python?**
+**Get started without manually setting up Python!**
 
-Head over to the **[Releases](../../releases)** page and download the prebuilt ZIP package for your operating system.
+Visit the **[Releases](../../releases)** page and download the prebuilt ZIP package for your operating system.
 
-1. 📦 Download the prebuilt ZIP for your OS.
+| Platform | Package |
+|---|---|
+| 🪟 Windows | `CraftPulseLauncher-windows.zip` |
+| 🐧 Linux | `CraftPulseLauncher-linux.zip` |
+| 🍎 macOS | `CraftPulseLauncher-macos.zip` |
+
+### 🚀 Installation Steps
+
+1. 📦 Download the prebuilt ZIP for your operating system from Releases.
 2. 🗜️ Extract the ZIP archive to a folder of your choice.
-3. ▶️ Run the included executable to launch CraftPulse.
+3. ▶️ Run the included executable or open the application bundle, depending on your OS.
 
-That's it! No need to install Python or manually set up the launcher dependencies when using a compatible prebuilt release.
+That's it! A compatible prebuilt release includes the packaged application and its required bundled dependencies.
 
-> 💡 **Tip:** Download the package that matches your operating system. If no prebuilt release is available for your OS, use the source installation instructions below.
+> 💡 **Note:** Download the package matching your operating system and supported CPU architecture. macOS builds may require additional security approval if they are unsigned or not notarized. Availability depends on published releases.
 
 ---
 
@@ -34,16 +43,17 @@ That's it! No need to install Python or manually set up the launcher dependencie
 | | Feature | Description |
 |---|---|---|
 | 🎮 | **Instant Launch** | One-click PLAY with `F5` and force-stop with `Ctrl + F2`. |
-| 📦 | **Instance Manager** | Create, duplicate, rename, and delete unlimited isolated instances. |
-| ☕ | **Automatic Java** | Automatically downloads the appropriate Mojang Java runtime for each Minecraft version. |
-| 🧩 | **Mod Loader Support** | Install and switch between Fabric, Quilt, and Forge without wiping your saves. |
+| 📦 | **Instance Manager** | Create, duplicate, rename, delete, search, and sort isolated instances. |
+| ☕ | **Automatic Java** | Downloads the appropriate Mojang Java runtime for supported Minecraft versions. |
+| 🧩 | **Mod Loader Support** | Install and switch between Fabric, Quilt, and Forge. |
 | 🔎 | **Modrinth Browser** | Browse and install mods, resource packs, shaders, and datapacks. |
-| 👤 | **Offline Profiles** | Manage multiple offline player profiles and copy UUIDs with one click. |
-| 📜 | **Live Console** | Real-time, colour-coded logs with search, refresh, and export functionality. |
-| 📸 | **Screenshot Gallery** | View, open, and manage Minecraft screenshots in a convenient grid. |
-| 🎨 | **Material You Themes** | Choose from 8 colour seeds and switch between dark and light modes. |
+| 👤 | **Offline Profiles** | Manage multiple offline player profiles and copy UUIDs. |
+| 📜 | **Live Console** | Real-time, colour-coded logs with search, refresh, and export. |
+| 📸 | **Screenshot Gallery** | Browse, open, and delete Minecraft screenshots. |
+| 🎨 | **40 Material You Themes** | Choose from a collection of colour presets and switch between dark and light modes. |
 | ⚙️ | **Advanced Settings** | Configure RAM, JVM arguments, Java paths, resolution, and more. |
-| 💾 | **Offline-Friendly** | Keep your instances and downloaded game files locally for convenient access. |
+| 💾 | **Local Data Management** | Keep instances, settings, and downloaded game files organized locally. |
+| 🖥️ | **Multi-Platform Builds** | Prebuilt release packages for Windows, Linux, and macOS when available. |
 
 ---
 
@@ -53,7 +63,7 @@ That's it! No need to install Python or manually set up the launcher dependencie
 
 - Python **3.10 or newer**
 - `pip`
-- An internet connection for initial game downloads, Java downloads, and Modrinth browsing
+- Internet access for initial Minecraft and Java downloads and Modrinth browsing
 
 ### 📚 Install Dependencies
 
@@ -67,7 +77,21 @@ pip install flet minecraft-launcher-lib requests
 python main.py
 ```
 
-CraftPulse will create its application data directory automatically.
+CraftPulse creates its application data directory automatically.
+
+### 🍎 macOS Setup
+
+To run CraftPulse from source on macOS:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install flet minecraft-launcher-lib requests
+python main.py
+```
+
+For prebuilt macOS packages, download the appropriate ZIP from Releases, extract it, and open the packaged application if provided.
 
 ### 📂 Application Data Locations
 
@@ -82,25 +106,36 @@ CraftPulse will create its application data directory automatically.
 ## 🏠 Explore CraftPulse
 
 ### 🎮 Home Dashboard
+
 Get an overview of your Minecraft setup with instance statistics, mod counts, playtime, player profiles, quick actions, and active-instance status.
 
 ### 📦 Instance Manager
+
 - Create, duplicate, rename, and delete instances.
 - Search by instance name or Minecraft version.
 - Sort by name, version, playtime, or date.
 - View last-played dates and total playtime.
 - Configure Java paths and RAM for individual instances.
+- Keep saves and other instance files separate.
 
 ### 🔎 Modrinth Browser
+
 - Search for mods, resource packs, shaders, and datapacks.
 - Filter results by content type.
-- Match compatible content to your instance's Minecraft version.
+- Match supported content to your instance's Minecraft version.
 - Install supported content directly into the selected instance.
 
 ### 🗃️ Instance Files
-Manage installed mods, resource packs, and single-player worlds for each instance, with file deletion available directly from the interface.
+
+Manage your instance files directly through CraftPulse.
+
+- Browse installed mods.
+- Manage resource packs and shader packs.
+- Access single-player worlds.
+- Delete files through the interface.
 
 ### 👤 Account Manager
+
 - Add, delete, and switch between offline player profiles.
 - View player UUIDs and copy them to the clipboard.
 - Check profile creation dates.
@@ -108,6 +143,7 @@ Manage installed mods, resource packs, and single-player worlds for each instanc
 > ℹ️ Offline profiles do not provide Microsoft account authentication or access to authenticated online-mode servers.
 
 ### 📜 Console & Logs
+
 - Monitor live Minecraft output.
 - Identify errors, warnings, and launcher messages through colour coding.
 - Toggle automatic scrolling.
@@ -115,19 +151,84 @@ Manage installed mods, resource packs, and single-player worlds for each instanc
 - Export console output to `.txt` files.
 
 ### 📸 Screenshot Gallery
+
 - Browse `.png` and `.jpg` screenshots.
 - Open images or their containing folders.
 - Delete screenshots directly.
 - Sort images with the newest first.
 
 ### 🎨 Personalization & Settings
-- Pick from 8 Material You colour presets.
+
+- Choose from **40 Material You colour presets**.
 - Switch between dark and light themes.
 - Allocate between 1 GB and 16 GB of RAM.
 - Customize JVM arguments and Java paths.
 - Select a game window resolution.
 - Configure console auto-scrolling.
 - Open the application folder or reset settings to defaults.
+
+---
+
+## 🎨 Theme Collection
+
+CraftPulse includes a collection of Material You-inspired colour presets.
+
+### 💜 Original Themes
+
+- Dynamic Purple
+- Emerald Grove
+- Ocean Sapphire
+- Crimson Nether
+- Amber Blaze
+- Obsidian Deep
+- Amethyst Glow
+- Teal Prism
+
+### 🌿 Nature & Biomes
+
+- Forest Canopy
+- Cherry Blossom
+- Mossy Stone
+- Arctic Frost
+- Desert Dune
+- Ocean Depths
+- Aurora Green
+- Lavender Mist
+
+### 💎 Gems & Minerals
+
+- Ruby Flame
+- Rose Quartz
+- Citrine Gold
+- Sapphire Night
+- Jade Crystal
+- Turquoise Gem
+- Onyx Black
+- Opal Dream
+
+### ⛏️ Minecraft-Inspired
+
+- Nether Portal
+- Redstone Dust
+- Diamond Armor
+- Slime Chunk
+- Gold Ingot
+- Ender Void
+- Lapis Lazuli
+- Copper Oxide
+
+### 🌌 Modern & Aesthetic
+
+- Cyberpunk Neon
+- Electric Indigo
+- Sunset Coral
+- Midnight Blue
+- Soft Peach
+- Glacier Blue
+- Vintage Rose
+- Monochrome
+
+*Theme colours act as seed colours for the launcher interface. Available appearance options depend on the current implementation.*
 
 ---
 
@@ -148,6 +249,7 @@ craftpulse_launcher/
 ├── lib/
 │   ├── mc_core.py           # Configuration, accounts, instances, Modrinth API
 │   └── launcher_runner.py   # Downloads, verification, and game launching
+├── requirements.txt         # Python dependencies, if present
 └── README.md
 ```
 
@@ -183,6 +285,15 @@ craftpulse/
 | 🔎 Mod type filter not searching | Corrected the dropdown change handler. |
 | 🎮 PLAY button remaining enabled | Disable the button and display `PLAYING` while Minecraft runs; re-enable it after exit. |
 | ⚠️ Closing while Minecraft runs | Display a confirmation dialog before closing the launcher. |
+
+---
+
+## 📋 Changelog
+
+### ✨ Latest Updates
+
+- 🎨 **Added More Themes** — Expanded the Material You theme collection with additional colours and styles, bringing the total to 40 presets.
+- 🍎 **Added Support For macOS** — Added macOS to the automated release build workflow alongside Windows and Linux.
 
 ---
 
