@@ -26,6 +26,8 @@ jobs:
             platform: windows
           - os: ubuntu-latest
             platform: linux
+          - os: macos-latest
+            platform: macos
 
     steps:
       - name: Checkout source
@@ -45,11 +47,7 @@ jobs:
             python -m pip install -r requirements.txt
           fi
 
-          if ! python -m pip show flet >/dev/null 2>&1; then
-            python -m pip install flet
-          fi
-
-          python -m pip install pyinstaller
+          python -m pip install flet minecraft-launcher-lib requests pyinstaller
 
       - name: Package CraftPulse Launcher
         shell: bash
@@ -81,7 +79,9 @@ jobs:
           output = Path("release-assets")
           output.mkdir(exist_ok=True)
 
-          archive = output / f"CraftPulseLauncher-{os.environ['PLATFORM']}.zip"
+          archive = output / (
+              f"CraftPulseLauncher-{os.environ['PLATFORM']}.zip"
+          )
 
           with ZipFile(archive, "w", ZIP_DEFLATED) as zf:
               for file in files:
@@ -104,7 +104,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Download Windows and Linux builds
+      - name: Download all platform builds
         uses: actions/download-artifact@v4
         with:
           pattern: release-assets-*
@@ -123,28 +123,38 @@ jobs:
           fail_on_unmatched_files: true
           generate_release_notes: true
           body: |
-            # 🚀 CraftPulse Launcher v${{ inputs.release_version }}
+            # ⛏️ CraftPulse Launcher v${{ inputs.release_version }}
 
-            Your next CraftPulse Launcher release is here!
+            Your modern Material You Minecraft launcher is here!
 
             ## 📦 Downloads
 
-            - **Windows:** Download `CraftPulseLauncher-windows.zip`
-            - **Linux:** Download `CraftPulseLauncher-linux.zip`
+            | Operating System | Download |
+            |---|---|
+            | 🪟 Windows | `CraftPulseLauncher-windows.zip` |
+            | 🐧 Linux | `CraftPulseLauncher-linux.zip` |
+            | 🍎 macOS | `CraftPulseLauncher-macos.zip` |
 
-            ## 💻 Installation
+            ## 🚀 Installation
 
             1. Download the ZIP for your operating system.
             2. Extract the archive.
-            3. Run the packaged application.
+            3. Run the included executable.
 
-            ## ✨ Release information
+            **macOS:** Open the extracted application bundle if
+            provided. Builds are specific to their target architecture.
+            Unsigned applications may require additional signing and
+            notarization before they can be distributed smoothly.
+
+            ## ✨ Release Information
 
             - Version: `${{ inputs.release_version }}`
-            - Platforms: Windows and Linux
-            - Builds: Automated with GitHub Actions
+            - Platforms: Windows, Linux, and macOS
+            - Build system: GitHub Actions
+            - UI: Python + Flet + Material You
 
-            Thanks for checking out CraftPulse Launcher! 💚
+            Thanks for using CraftPulse Launcher! 💚
           files: |
             release-assets/CraftPulseLauncher-windows.zip
             release-assets/CraftPulseLauncher-linux.zip
+            release-assets/CraftPulseLauncher-macos.zip
