@@ -1,0 +1,67 @@
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+.Python
+*.so
+
+# ── Virtual Environments ───────────────────────────────────────────────────────
+.venv/
+venv/
+env/
+ENV/
+.env
+.venv
+pip-selfcheck.json
+
+# ── Distribution / Build ───────────────────────────────────────────────────────
+build/
+dist/
+*.egg-info/
+*.egg
+MANIFEST
+.eggs/
+wheels/
+
+# ── Flet build output ─────────────────────────────────────────────────────────
+# `flet build` puts artifacts here
+build/
+# PyInstaller
+*.spec
+
+# ── IDE & Editors ─────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Testing ───────────────────────────────────────────────────────────────────
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# ── Logs & exports ────────────────────────────────────────────────────────────
+*.log
+craftpulse_log_*.txt
+
+# ── Launcher runtime data (AppData — never commit these) ──────────────────────
+# These live in %APPDATA%/craftpulse on Windows or ~/.local/share/craftpulse
+# If someone accidentally copies them into the repo folder, ignore them.
+instances/
+shared_minecraft/
+jdk/
+config.json
+accounts.json
+
+# ── Misc ──────────────────────────────────────────────────────────────────────
+*.bak
+*.tmp
+findstr
+
