@@ -25,6 +25,7 @@ from lib.mc_core import (
 from lib.launcher_runner import InstanceRunner
 
 THEME_PRESETS = [
+    # 💜 Original Themes
     {"name": "Dynamic Purple", "color": "#6750A4"},
     {"name": "Emerald Grove", "color": "#2E7D32"},
     {"name": "Ocean Sapphire", "color": "#0288D1"},
@@ -33,6 +34,46 @@ THEME_PRESETS = [
     {"name": "Obsidian Deep", "color": "#37474F"},
     {"name": "Amethyst Glow", "color": "#7B1FA2"},
     {"name": "Teal Prism", "color": "#00897B"},
+
+    # 🌿 Nature & Biomes
+    {"name": "Forest Canopy", "color": "#33691E"},
+    {"name": "Cherry Blossom", "color": "#EC407A"},
+    {"name": "Mossy Stone", "color": "#827717"},
+    {"name": "Arctic Frost", "color": "#80DEEA"},
+    {"name": "Desert Dune", "color": "#C19A6B"},
+    {"name": "Ocean Depths", "color": "#006064"},
+    {"name": "Aurora Green", "color": "#00C853"},
+    {"name": "Lavender Mist", "color": "#9575CD"},
+
+    # 💎 Gems & Minerals
+    {"name": "Ruby Flame", "color": "#D32F2F"},
+    {"name": "Rose Quartz", "color": "#F06292"},
+    {"name": "Citrine Gold", "color": "#F9A825"},
+    {"name": "Sapphire Night", "color": "#3949AB"},
+    {"name": "Jade Crystal", "color": "#00A86B"},
+    {"name": "Turquoise Gem", "color": "#00ACC1"},
+    {"name": "Onyx Black", "color": "#455A64"},
+    {"name": "Opal Dream", "color": "#80CBC4"},
+
+    # 🔥 Minecraft-Inspired
+    {"name": "Nether Portal", "color": "#6A1B9A"},
+    {"name": "Redstone Dust", "color": "#B71C1C"},
+    {"name": "Diamond Armor", "color": "#4DD0E1"},
+    {"name": "Slime Chunk", "color": "#76FF03"},
+    {"name": "Gold Ingot", "color": "#FFD600"},
+    {"name": "Ender Void", "color": "#311B92"},
+    {"name": "Lapis Lazuli", "color": "#1565C0"},
+    {"name": "Copper Oxide", "color": "#00897B"},
+
+    # 🌌 Modern & Aesthetic
+    {"name": "Cyberpunk Neon", "color": "#D500F9"},
+    {"name": "Electric Indigo", "color": "#536DFE"},
+    {"name": "Sunset Coral", "color": "#FF7043"},
+    {"name": "Midnight Blue", "color": "#283593"},
+    {"name": "Soft Peach", "color": "#FFAB91"},
+    {"name": "Glacier Blue", "color": "#64B5F6"},
+    {"name": "Vintage Rose", "color": "#AD1457"},
+    {"name": "Monochrome", "color": "#616161"},
 ]
 
 def main(page: ft.Page):
