@@ -1,0 +1,150 @@
+
+name: CraftPulse Launcher Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_version:
+        description: "Release version, without v (e.g. 1.0.0)"
+        required: true
+        type: string
+        default: "1.0.0"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build for ${{ matrix.platform }}
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            platform: windows
+          - os: ubuntu-latest
+            platform: linux
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        shell: bash
+        run: |
+          python -m pip install --upgrade pip
+
+          if [ -f requirements.txt ]; then
+            python -m pip install -r requirements.txt
+          fi
+
+          if ! python -m pip show flet >/dev/null 2>&1; then
+            python -m pip install flet
+          fi
+
+          python -m pip install pyinstaller
+
+      - name: Package CraftPulse Launcher
+        shell: bash
+        env:
+          RELEASE_VERSION: ${{ inputs.release_version }}
+        run: |
+          flet pack main.py \
+            --name CraftPulseLauncher \
+            --product-name "CraftPulse Launcher" \
+            --product-version "$RELEASE_VERSION" \
+            --yes
+
+      - name: Create release ZIP
+        shell: bash
+        env:
+          PLATFORM: ${{ matrix.platform }}
+        run: |
+          python - <<'PY'
+          import os
+          from pathlib import Path
+          from zipfile import ZipFile, ZIP_DEFLATED
+
+          dist = Path("dist")
+          files = [p for p in dist.rglob("*") if p.is_file()]
+
+          if not files:
+              raise SystemExit("No packaged files found in dist/")
+
+          output = Path("release-assets")
+          output.mkdir(exist_ok=True)
+
+          archive = output / f"CraftPulseLauncher-{os.environ['PLATFORM']}.zip"
+
+          with ZipFile(archive, "w", ZIP_DEFLATED) as zf:
+              for file in files:
+                  zf.write(file, file.relative_to(dist))
+
+          print(f"Created {archive}")
+          PY
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-assets-${{ matrix.platform }}
+          path: release-assets/*.zip
+          if-no-files-found: error
+          retention-days: 7
+
+  release:
+    name: Publish GitHub Release
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download Windows and Linux builds
+        uses: actions/download-artifact@v4
+        with:
+          pattern: release-assets-*
+          path: release-assets
+          merge-multiple: true
+
+      - name: Publish release
+        uses: softprops/action-gh-release@v3
+        with:
+          tag_name: v${{ inputs.release_version }}
+          name: "CraftPulse Launcher v${{ inputs.release_version }} ✨"
+          target_commitish: ${{ github.sha }}
+          draft: false
+          prerelease: false
+          make_latest: true
+          fail_on_unmatched_files: true
+          generate_release_notes: true
+          body: |
+            # 🚀 CraftPulse Launcher v${{ inputs.release_version }}
+
+            Your next CraftPulse Launcher release is here!
+
+            ## 📦 Downloads
+
+            - **Windows:** Download `CraftPulseLauncher-windows.zip`
+            - **Linux:** Download `CraftPulseLauncher-linux.zip`
+
+            ## 💻 Installation
+
+            1. Download the ZIP for your operating system.
+            2. Extract the archive.
+            3. Run the packaged application.
+
+            ## ✨ Release information
+
+            - Version: `${{ inputs.release_version }}`
+            - Platforms: Windows and Linux
+            - Builds: Automated with GitHub Actions
+
+            Thanks for checking out CraftPulse Launcher! 💚
+          files: |
+            release-assets/CraftPulseLauncher-windows.zip
+            release-assets/CraftPulseLauncher-linux.zip
