@@ -228,8 +228,6 @@ CraftPulse includes a collection of Material You-inspired colour presets.
 - Vintage Rose
 - Monochrome
 
-*Theme colours act as seed colours for the launcher interface. Available appearance options depend on the current implementation.*
-
 ---
 
 ## ⌨️ Keyboard Shortcuts
