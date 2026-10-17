@@ -1,0 +1,53 @@
+name: Deploy CraftPulse Website
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Build and Deploy Website
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Verify website files
+        run: |
+          if [ ! -f docs/index.html ]; then
+            echo "::error::docs/index.html was not found!"
+            exit 1
+          fi
+
+          echo "Website found in /docs"
+          ls -la docs/
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload website from docs
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Deployment successful
+        run: |
+          echo "Website deployed successfully!"
+          echo "URL: ${{ steps.deployment.outputs.page_url }}"
