@@ -748,7 +748,7 @@ def main(page: ft.Page):
         prefix_icon=ft.Icons.SEARCH,
         dense=True,
         expand=True,
-        on_change=lambda e: refresh_instances_grid()
+        on_select=lambda e: refresh_instances_grid()
     )
     instances_sort_dropdown = ft.Dropdown(
         dense=True,
@@ -760,7 +760,7 @@ def main(page: ft.Page):
             ft.dropdown.Option("playtime", "Sort: Most Played"),
             ft.dropdown.Option("created", "Sort: Newest"),
         ],
-        on_change=lambda e: refresh_instances_grid()
+        on_select=lambda e: refresh_instances_grid()
     )
 
     def refresh_instances_grid():
@@ -907,7 +907,7 @@ def main(page: ft.Page):
             ft.dropdown.Option("datapack", "Datapacks")
         ],
         width=160,
-        on_change=lambda e: perform_mod_search()
+        on_select=lambda e: perform_mod_search()
     )
     mod_results_list = ft.ListView(expand=True, spacing=10, padding=4)
     mod_search_progress = ft.ProgressBar(visible=False, height=3)
@@ -1419,7 +1419,7 @@ def main(page: ft.Page):
         value=config.get("auto_refresh_logs", True),
         label="Auto-scroll",
         tooltip="Automatically scroll to the latest log line",
-        on_change=lambda e: [
+        on_select=lambda e: [
             config.__setitem__("auto_refresh_logs", e.control.value),
             save_config(config),
             notify("Auto-scroll " + ("enabled" if e.control.value else "disabled"))
@@ -1492,7 +1492,7 @@ def main(page: ft.Page):
         divisions=15,
         value=config.get("jvm_max_ram", 4096),
         label="{value} MB",
-        on_change=lambda e: ram_label.__setattr__("value", f"{int(e.control.value)} MB ({round(e.control.value/1024, 1)} GB)") or page.update()
+        on_select=lambda e: ram_label.__setattr__("value", f"{int(e.control.value)} MB ({round(e.control.value/1024, 1)} GB)") or page.update()
     )
     ram_label = ft.Text(f"{config.get('jvm_max_ram', 4096)} MB ({round(config.get('jvm_max_ram', 4096)/1024, 1)} GB)", weight=ft.FontWeight.BOLD)
 
@@ -1547,7 +1547,7 @@ def main(page: ft.Page):
                 theme_chips_row,
                 ft.Row([
                     ft.Text("Dark Mode Theme", size=14, weight=ft.FontWeight.W_500),
-                    ft.Switch(value=(config.get("theme_mode", "dark") == "dark"), on_change=toggle_dark_light)
+                    ft.Switch(value=(config.get("theme_mode", "dark") == "dark"), on_select=toggle_dark_light)
                 ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
 
                 ft.Divider(),
@@ -1567,7 +1567,7 @@ def main(page: ft.Page):
                     ft.Text("Auto-scroll console logs", size=14, weight=ft.FontWeight.W_500),
                     ft.Switch(
                         value=config.get("auto_refresh_logs", True),
-                        on_change=lambda e: [
+                        on_select=lambda e: [
                             config.__setitem__("auto_refresh_logs", e.control.value),
                             save_config(config),
                             auto_refresh_switch.__setattr__("value", e.control.value),
@@ -1801,7 +1801,7 @@ def main(page: ft.Page):
             ft.NavigationRailDestination(icon=ft.Icons.SETTINGS_OUTLINED, selected_icon=ft.Icons.SETTINGS, label="Settings"),
             ft.NavigationRailDestination(icon=ft.Icons.PHOTO_LIBRARY_OUTLINED, selected_icon=ft.Icons.PHOTO_LIBRARY, label="Screenshots"),
         ],
-        on_change=lambda e: switch_view(e.control.selected_index)
+        on_select=lambda e: switch_view(e.control.selected_index)
     )
 
     top_header = ft.Container(
